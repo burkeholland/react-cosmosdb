@@ -22,7 +22,7 @@ function create(req, res) {
   hero
     .save()
     .then(() => {
-      res.json(hewHero);
+      res.json(hero);
     })
     .catch(err => {
       res.status(500).send(err);
@@ -44,9 +44,9 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-  const { id } = req.body;
+  const { id } = req.params;
 
-  Hero.findOneAndRemove({ id: id })
+  Hero.findOneAndRemove({ id })
     .then(hero => {
       res.json(hero);
     })
