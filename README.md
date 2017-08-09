@@ -40,31 +40,6 @@ module.exports = {
 };
 ```
 
-## Run The App
-
-To run the application in development, launch the React front end by running `npm start` from the main directory.
-
-```bash
-npm start
-```
-
-Launch the Express backend from a separate tab by running `npm start` in the `server` folder.
-
-```bash
-cd server
-npm start
-```
-
-
-
-## Installing
-
-```bash
-git clone 'this-repo-url' app-name
-cd app-name
-npm install
-```
-
 ## Running The App
 
 The template can be run in development, or in production. For development, use the following workflow.
