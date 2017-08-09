@@ -22,4 +22,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # secrets
-env/environment.js
+server/env/environment.js
