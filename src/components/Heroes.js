@@ -1,7 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import EditHero from "./EditHero";
-import heroService from "../services/hero-service";
+import EditHero from './EditHero';
+import Hero from './Hero';
+
+import api from '../api';
 
 class Heroes extends Component {
   constructor() {
@@ -17,10 +19,11 @@ class Heroes extends Component {
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
-    heroService.get().then(json => this.setState({ heroes: json }));
+    api.get().then(json => this.setState({ heroes: json }));
   }
 
   handleSelect(hero) {
@@ -30,7 +33,7 @@ class Heroes extends Component {
   handleDelete(event, hero) {
     event.stopPropagation();
 
-    heroService.destroy(hero).then(() => {
+    api.destroy(hero).then(() => {
       let heroes = this.state.heroes;
       heroes = heroes.filter(h => h !== hero);
       this.setState({ heroes: heroes });
@@ -44,7 +47,7 @@ class Heroes extends Component {
   handleEnableAddMode() {
     this.setState({
       addingHero: true,
-      selectedHero: { id: "", name: "", saying: "" }
+      selectedHero: { id: '', name: '', saying: '' }
     });
   }
 
@@ -56,10 +59,10 @@ class Heroes extends Component {
     let heroes = this.state.heroes;
 
     if (this.state.addingHero) {
-      heroService
+      api
         .create(this.state.selectedHero)
         .then(result => {
-          console.log("Successfully created!");
+          console.log('Successfully created!');
 
           heroes.push(this.state.selectedHero);
           this.setState({
@@ -72,9 +75,12 @@ class Heroes extends Component {
           console.log(err);
         });
     } else {
-      heroService.update(this.state.selectedHero).catch(err => {
-        console.log("Updated!");
-      });
+      api
+        .update(this.state.selectedHero)
+        .then(() => {
+          this.setState({ selectedHero: null });
+        })
+        .catch(err => {});
     }
   }
 
@@ -90,29 +96,13 @@ class Heroes extends Component {
         <ul className="heroes">
           {this.state.heroes.map(hero => {
             return (
-              <li
+              <Hero
                 key={hero.id}
-                onClick={() => this.handleSelect(hero)}
-                className={hero === this.state.selectedHero ? "selected" : ""}
-              >
-                <button
-                  className="delete-button"
-                  onClick={e => this.handleDelete(e, hero)}
-                >
-                  Delete
-                </button>
-                <div className="hero-element">
-                  <div className="badge">
-                    {hero.id}
-                  </div>
-                  <div className="name">
-                    {hero.name}
-                  </div>
-                  <div className="saying">
-                    {hero.saying}
-                  </div>
-                </div>
-              </li>
+                hero={hero}
+                onSelect={this.handleSelect}
+                onDelete={this.handleDelete}
+                selectedHero={this.state.selectedHero}
+              />
             );
           })}
         </ul>

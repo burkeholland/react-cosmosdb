@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const EditHero = props => {
   if (props.selectedHero) {
@@ -9,6 +9,7 @@ const EditHero = props => {
             <label>id: </label>
             {props.addingHero
               ? <input
+                  type="number"
                   name="id"
                   placeholder="id"
                   value={props.selectedHero.id}
