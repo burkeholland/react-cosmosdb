@@ -42,7 +42,7 @@ module.exports = {
 
 ## Running The App
 
-The template can be run in development, or in production. For development, use the following workflow.
+In development, the app runs via two separate processes...
 
 ### Start the Express Server
 
@@ -68,6 +68,13 @@ In production, you want Express to serve up your app.
 npm build
 ```
 
-Now simply visit the Express app at 'http://localhost:3001' and you will see your app served from the 'server' folder. That's all there is to it!
+Now start the Express server from the server folder
 
-Everything in the server folder is what is needed in production. Those are all of the build assets. 
+```bash
+cd server
+npm start
+```
+
+Your entire application is now running on port 3001.
+
+Everything in the `server` folder is what is needed in production. Those are all of the build assets. 
