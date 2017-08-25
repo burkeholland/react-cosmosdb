@@ -1,4 +1,4 @@
-# React CosmosDB
+# React & Azure Cosmos DB
 
 This is a demo project for the React CosmosDB video series that shows how to...
 
